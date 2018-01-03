@@ -66,9 +66,20 @@ public class ShowOrder extends HttpServlet {
 		
 		ServletContext context = getServletContext();
 		
+		int visitor,user,total;
 		//在线用户和游客用户
-		int user = (Integer)context.getAttribute("user");
-		int visitor = (Integer)context.getAttribute("visitor");
+		if(null == context.getAttribute("visitor")) {
+			visitor = 0;
+		}else {
+			visitor = (Integer)context.getAttribute("visitor");
+		}
+		
+		if(null == context.getAttribute("user")) {
+			user = 0;
+		}else {
+			user = (Integer) context.getAttribute("user");
+		}
+		
 		String customer_name = request.getParameter("login");
 		ResultSet resultSet = null;
 		
@@ -128,20 +139,21 @@ public class ShowOrder extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		out.println("当前在线人数："+user);
-		out.println("当前游客人数："+visitor);
-		out.println("总用户："+(user+visitor));
+		out.println("当前游客数："+visitor);
+		out.println("当前用户人数"+user);
+		total = visitor + user;
+		out.print("总人数"+total);
 		out.println("<form method='GET' action='"
                 		+ response.encodeURL(request.getContextPath()+"/Login")
                 	+ "'>");
-		out.println("<input type='submit' name='Submit' value='Logout'></form>");
-		out.println("<script language='JavaScript'>window.onbeforeunload=function (event){   " +
-				"if(event.clientX>document.body.clientWidth && event.clientY < 0 || event.altKey){   " + 
-				"alert(\"你关闭了浏览器\");   " + 
-				"}else{   " + 
-				"alert(\"你正在刷新页面\");   " + 
-				"};   " + 
-				"};</script>");
+		out.println("<input type='submit' name='Logout' value='Logout'></form>");
+//		out.println("<script language='JavaScript'>window.onbeforeunload=function (event){   " +
+//				"if(event.clientX>document.body.clientWidth && event.clientY < 0 || event.altKey){   " + 
+//				"alert(\"你关闭了浏览器\");   " + 
+//				"}else{   " + 
+//				"alert(\"你正在刷新页面\");   " + 
+//				"};   " + 
+//				"};</script>");
 		out.println("</body></html>");
 		
 	}

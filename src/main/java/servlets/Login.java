@@ -61,7 +61,10 @@ public class Login extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		Cookie cookie = null;
         Cookie[] cookies = request.getCookies();
-  
+
+		if(null == session) {
+        	session = request.getSession();
+        }
 //        Integer ival = new Integer(1);
         		
         if (null != cookies) {
@@ -101,9 +104,7 @@ public class Login extends HttpServlet {
         out.println("<p>Servlet is version @version@</p>");
 //    out.println("</p>You are visitor number " + webCounter);
        
-    int visitor = (Integer) request.getServletContext().getAttribute("visitor");
     out.println("</form>");
-    out.println("当前游客人数："+visitor);
      out.println("</body></html>");
 	}
 
@@ -129,11 +130,15 @@ public class Login extends HttpServlet {
 			String sql = "select customer_id,password from customer where customer_name = '" + customer_name+"'";
 			resultSet = statement.executeQuery(sql);
 			if(resultSet.next()&&resultSet.getString("password").equals(password)) {
-				HttpSession session = request.getSession(false);
-				//用户验证成功后创建会话
-				if(null == session) {
-		        	session = request.getSession();
-		        }
+				HttpSession session = request.getSession();
+				session.setAttribute("login", customer_name);
+				int visitor;
+				if(null == request.getAttribute("visitor")) {
+					visitor = 1;
+					request.setAttribute("visitor", visitor);
+				}else{
+					visitor = (Integer) request.getAttribute("visitor");
+				}
 				request.getRequestDispatcher("/ShowOrder").forward(request,response);
 			}else {
 				out.println("<h1>用户名或密码错误</h1>");

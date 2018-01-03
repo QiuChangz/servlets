@@ -46,12 +46,7 @@
   	<servlet-name>Login</servlet-name>
   	<url-pattern>/Login</url-pattern>
   </servlet-mapping>
-
-
-    <session-config>
-    	<session-timeout>1</session-timeout>
-    </session-config>
-    
+  
   <resource-ref>
 	<res-ref-name>jdbc/myj2ee</res-ref-name>
 	<res-type>javax.sql.DataSource</res-type>
