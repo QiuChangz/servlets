@@ -49,8 +49,7 @@ public class ShowOrder extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println(request.getParameter("customer_name"));
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		processRequest(request, response);
 	}
 
 	/**
@@ -60,22 +59,6 @@ public class ShowOrder extends HttpServlet {
 		// TODO Auto-generated method stub
 
 //		PrintWriter out = response.getWriter();
-        
-		response.setContentType("text/html;charset=utf-8");
-		
-		ServletContext context = getServletContext();
-		
-		int visitor,user;
-		//在线用户和游客用户
-		if(null == context.getAttribute("visitor")) {
-			visitor = 0;
-			context.setAttribute("visitor", visitor);
-		}
-		
-		if(null == context.getAttribute("user")) {
-			user = 0;
-			context.setAttribute("user", user);
-		}
 		
 		processRequest(request, response);
 //		ResultSet resultSet = null;
@@ -149,17 +132,43 @@ public class ShowOrder extends HttpServlet {
 	}
 	
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		 
 		response.setContentType("text/html;charset=utf-8");
+
 		request.setCharacterEncoding("UTF-8");
 		
-		HttpSession session = request.getSession();
 		ServletContext context = getServletContext();
+		
+		int visitor,user;
+		//在线用户和游客用户
+		if(null == context.getAttribute("visitor")) {
+			visitor = 0;
+			context.setAttribute("visitor", visitor);
+		}
+		
+		if(null == context.getAttribute("user")) {
+			user = 0;
+			context.setAttribute("user", user);
+		}
+		
+		HttpSession session = request.getSession();
 		OrderListBean orderListBean = new OrderListBean();
-		Customer customer = ServiceFactory.getCustomerManagerService().getCustomerInfo(request.getParameter("login"));
+		Customer customer = null;
+		String customer_name = request.getParameter("login");
+		if(null == customer_name||customer_name.equals("")) {
+			try {
+				context.getRequestDispatcher("/Login").forward(request, response);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"This is a servlet error");
+			}
+		}
+		customer = ServiceFactory.getCustomerManagerService().getCustomerInfo(customer_name);
 		orderListBean.setOrderList(ServiceFactory.getCustomerManagerService().getOrderList(customer.getCustomerId()));
 		try {
-			if(orderListBean.getOrderList().size()<0) {
-				context.getRequestDispatcher("/Jsp/error.jsp").forward(request, response);
+			if(null == customer || orderListBean.getOrderList().size()<0) {
+				context.getRequestDispatcher("/Login").forward(request, response);
 			}else {
 				session.setAttribute("orderListBean", orderListBean);
 				context.getRequestDispatcher("/Jsp/showOrder.jsp").forward(request, response);

@@ -3,10 +3,15 @@
 <taglib>
 	<tlib-version>1.2</tlib-version>
 	<jsp-version>2.0</jsp-version>
-	<short-name>stock</short-name>
+	<short-name>Order</short-name>
 	<tag>
 		<name>orderInfo</name>
 		<tag-class>tag.OrderInfoHandler</tag-class>
+		<body-content>empty</body-content>
+	</tag>
+	<tag>
+		<name>login</name>
+		<tag-class>tag.LoginHandler</tag-class>
 		<body-content>empty</body-content>
 	</tag>
 </taglib>

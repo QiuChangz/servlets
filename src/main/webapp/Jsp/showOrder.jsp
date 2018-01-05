@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ taglib prefix="order" uri="/WEB-INF/tlds/OrderInfo.tld"%>
+<%@ taglib prefix="order" uri="/WEB-INF/tlds/jspTag.tld"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,7 +14,8 @@
 	<jsp:useBean id="orderListBean"
 		type="bussiness.OrderListBean"
 		scope="session"></jsp:useBean>
-					
+	
+	<order:login/>
 	<TABLE width="100%" border="0" cellpadding="0" cellspacing="1">
 			<TBODY>
 				<TR>

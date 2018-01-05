@@ -145,7 +145,7 @@ public class Login extends HttpServlet {
 		PrintWriter out = response.getWriter();
         out.println("<html>"
         		+ "<head><title>订单信息</title>"
-        		+ "<script type=\"text/javascript\" src=\"http://ajax.googleapis.com/ajax/libs\r\n" + 
+        		+ "<script type=\"text/javascript\" src=\"http://ajax.googleapis.com/ajax/libs" + 
         		"/jquery/1.4.0/jquery.min.js\"></script></head>"
         		+ "<body>");
         
