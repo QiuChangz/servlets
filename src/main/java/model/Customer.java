@@ -8,6 +8,10 @@ public class Customer {
 	private Sex sex;
 	private String phone;
 	
+	public void setCustomerId(int customer_id) {
+		this.customer_id = customer_id;
+	}
+	
 	public void setCustomerName(String name) {
 		this.customer_name = name;
 	}
@@ -20,12 +24,8 @@ public class Customer {
 		this.phone = phone;
 	}
 	
-	public void setSex(String sex) {
-		if(sex == "男") {
-			this.sex = Sex.male;
-		}else {
-			this.sex = Sex.female;
-		}
+	public void setSex(Sex sex) {
+		this.sex = sex;
 	}
 	
 	public int getCustomerId() {
