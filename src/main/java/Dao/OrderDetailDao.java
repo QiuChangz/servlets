@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import model.Goods;
 import model.OrderDetail;
 
-public interface OrderDetailDao {
+public interface OrderDetailDao extends BaseDao {
 
 	public ArrayList<OrderDetail> getOrderDetail(String order_num);
 	public void addOrderDetail(Goods goods, int num);

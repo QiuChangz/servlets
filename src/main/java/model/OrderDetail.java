@@ -1,12 +1,36 @@
 package model;
 
-public class OrderDetail {
+import java.io.Serializable;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="order_detail")
+public class OrderDetail implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String order_num;
 	private int goods_id;
 	private int goods_num;
 	private int goods_price;
 	private String goods_name;
+	private Order order;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="order_num")
+	public Order getOrder() {
+		return this.order;
+	}
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 	
 	public void setOrderNum(String order_num) {
 		this.order_num = order_num;

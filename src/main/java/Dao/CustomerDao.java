@@ -2,7 +2,7 @@ package Dao;
 
 import model.Customer;
 
-public interface CustomerDao {
+public interface CustomerDao extends BaseDao{
 
 	public void addCustomer(Customer customer);
 	public void deleteCustomer(int customer_id);

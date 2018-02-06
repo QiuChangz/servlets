@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import model.Order;
 
-public interface OrderDao {
+public interface OrderDao extends BaseDao{
 
 	public ArrayList<Order> getOrderList(int customer_id);
 	public void addOrder(Order order);

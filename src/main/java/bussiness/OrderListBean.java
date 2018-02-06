@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import model.Order;
-import model.OrderDetail;
+import qiusama.j2ee.servlets.model.Order;
+import qiusama.j2ee.servlets.model.OrderDetail;
+
+//import model.Order;
+//import model.OrderDetail;
 
 public class OrderListBean implements Serializable{
 

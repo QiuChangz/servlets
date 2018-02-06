@@ -1,7 +1,19 @@
 package model;
 
-public class Goods {
+import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="goods")
+public class Goods implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int goods_id;
 	private String goods_name;
 	private int goods_price;
@@ -27,7 +39,8 @@ public class Goods {
 	public void setGoodsTotalPrice(int goods_total_price) {
 		this.goods_total_price = goods_total_price;
 	}
-	
+
+	@Id
 	public int getGoodsId() {
 		return this.goods_id;
 	}

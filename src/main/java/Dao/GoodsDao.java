@@ -2,7 +2,7 @@ package Dao;
 
 import model.Goods;
 
-public interface GoodsDao {
+public interface GoodsDao extends BaseDao{
 
 	public Goods getGoods(int goods_id);
 	public void addGoods(Goods goods);

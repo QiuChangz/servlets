@@ -2,29 +2,29 @@ package servlets;
 
 import java.io.IOException;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bussiness.OrderListBean;
-import factory.ServiceFactory;
-import model.Customer;
+//import factory.ServiceFactory;
+//import model.Customer;
+import qiusama.j2ee.servlets.model.User;
+import qiusama.j2ee.servlets.service.UserManageService;
 
 /**
  * Servlet implementation class ShowOrder
  */
+@WebServlet("/ShowOrder")
 public class ShowOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-
-	/**
-	 * 设置数据库链接
-	 */
-//	private Connection connection;
        
+	@EJB UserManageService userManageService;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -153,7 +153,7 @@ public class ShowOrder extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		OrderListBean orderListBean = new OrderListBean();
-		Customer customer = null;
+		User customer = null;
 		String customer_name = request.getParameter("login");
 		if(null == customer_name||customer_name.equals("")) {
 			try {
@@ -164,8 +164,9 @@ public class ShowOrder extends HttpServlet {
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"This is a servlet error");
 			}
 		}
-		customer = ServiceFactory.getCustomerManagerService().getCustomerInfo(customer_name);
-		orderListBean.setOrderList(ServiceFactory.getCustomerManagerService().getOrderList(customer.getCustomerId()));
+		customer = userManageService.getUser("customer_name", customer_name);
+		
+		orderListBean.setOrderList(userManageService.getOrderList(customer.getUserId()));
 		try {
 			if(null == customer || orderListBean.getOrderList().size()<0) {
 				context.getRequestDispatcher("/Login").forward(request, response);

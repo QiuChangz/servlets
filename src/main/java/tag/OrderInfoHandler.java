@@ -6,8 +6,10 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import bussiness.OrderListBean;
-import model.Order;
-import model.OrderDetail;
+import qiusama.j2ee.servlets.model.Order;
+//import model.Order;
+//import model.OrderDetail;
+import qiusama.j2ee.servlets.model.OrderDetail;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;

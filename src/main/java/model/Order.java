@@ -1,7 +1,19 @@
 package model;
 
-public class Order {
+import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="order")
+public class Order implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int order_id;
 	private String order_num;
 	private int total_price;
@@ -23,6 +35,7 @@ public class Order {
 		this.customer_id = customer_id;
 	}
 	
+	@Id
 	public int getOrderId() {
 		return this.order_id;
 	}

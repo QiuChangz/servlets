@@ -1,7 +1,19 @@
 package model;
 
-public class Customer {
+import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="customer")
+public class Customer implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int customer_id;
 	private String customer_name;
 	private String password;
@@ -27,7 +39,8 @@ public class Customer {
 	public void setSex(Sex sex) {
 		this.sex = sex;
 	}
-	
+
+	@Id
 	public int getCustomerId() {
 		return this.customer_id;
 	}
